@@ -1,0 +1,36 @@
+.span10
+  %div{ "ng-controller" => "FitmentsCtrl" }
+    = form_tag do
+      %label Year
+      %select{"ng-model" => "selectedYear", "ng-change" => "getMakes()", "ng-disabled" => "yearsDisabled"}
+        %option{ "ng-model" => "selectedYear", "ng-repeat" => "year in years",  value: "{{year.name}}", "ng-click" => "getMakes()" }
+          {{year.name}}
+      %br
+      %label Make
+      %select{"ng-model" => "selectedMake", "ng-change" => "getModels()", "ng-disabled" => "makesDisabled"}
+        %option{ "ng-repeat" => "make in makes", value: "{{make.name}}" }
+          {{make.name}}
+      %br
+      %label Model
+      %select{"ng-model" => "selectedModel", "ng-change" => "getOptions()", "ng-disabled" => "modelsDisabled"}
+        %option{ "ng-repeat" => "model in models", value: "{{model.name}}" }
+          {{model.name}}
+      %br
+      %label Option
+      %select{"ng-model" => "selectedOption", "ng-change" => "getFitments()", "ng-disabled" => "optionsDisabled"}
+        %option{ "ng-repeat" => "option in options", value: "{{option.name}}" }
+          {{option.name}}
+
+      .fitments{"ng-show" => "showFitments"}
+        Standart tire size information for <strong>{{selectedYear}} {{selectedMake}} {{selectedModel}} {{selectedOption}}</strong> is:
+        .description{"ng-repeat" => "fitment in fitments"}
+          %br
+          %strong Section width:
+          {{fitment.SECTIONWIDTH}}
+          %br
+          %strong Aspect Ratio:
+          {{fitment.ASPECTRATIO}}
+          %br
+          %strong Rim:
+          {{fitment.RIM}}
+
